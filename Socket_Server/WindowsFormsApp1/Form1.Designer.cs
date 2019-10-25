@@ -36,6 +36,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txt_send = new System.Windows.Forms.TextBox();
             this.btn_send = new System.Windows.Forms.Button();
+            this.txt_path = new System.Windows.Forms.TextBox();
+            this.btn_select = new System.Windows.Forms.Button();
+            this.btn_sendfile = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,7 +105,7 @@
             // 
             // btn_send
             // 
-            this.btn_send.Location = new System.Drawing.Point(558, 396);
+            this.btn_send.Location = new System.Drawing.Point(536, 426);
             this.btn_send.Name = "btn_send";
             this.btn_send.Size = new System.Drawing.Size(85, 30);
             this.btn_send.TabIndex = 13;
@@ -109,11 +113,52 @@
             this.btn_send.UseVisualStyleBackColor = true;
             this.btn_send.Click += new System.EventHandler(this.Btn_send_Click);
             // 
+            // txt_path
+            // 
+            this.txt_path.Location = new System.Drawing.Point(80, 396);
+            this.txt_path.Name = "txt_path";
+            this.txt_path.Size = new System.Drawing.Size(359, 21);
+            this.txt_path.TabIndex = 15;
+            // 
+            // btn_select
+            // 
+            this.btn_select.Location = new System.Drawing.Point(445, 390);
+            this.btn_select.Name = "btn_select";
+            this.btn_select.Size = new System.Drawing.Size(85, 30);
+            this.btn_select.TabIndex = 16;
+            this.btn_select.Text = "选择";
+            this.btn_select.UseVisualStyleBackColor = true;
+            this.btn_select.Click += new System.EventHandler(this.Btn_select_Click);
+            // 
+            // btn_sendfile
+            // 
+            this.btn_sendfile.Location = new System.Drawing.Point(536, 390);
+            this.btn_sendfile.Name = "btn_sendfile";
+            this.btn_sendfile.Size = new System.Drawing.Size(85, 30);
+            this.btn_sendfile.TabIndex = 17;
+            this.btn_sendfile.Text = "发送文件";
+            this.btn_sendfile.UseVisualStyleBackColor = true;
+            this.btn_sendfile.Click += new System.EventHandler(this.Btn_sendfile_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(536, 462);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(85, 30);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "震动";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(798, 540);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_sendfile);
+            this.Controls.Add(this.btn_select);
+            this.Controls.Add(this.txt_path);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btn_send);
             this.Controls.Add(this.txt_msg);
@@ -141,6 +186,10 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txt_send;
         private System.Windows.Forms.Button btn_send;
+        private System.Windows.Forms.TextBox txt_path;
+        private System.Windows.Forms.Button btn_select;
+        private System.Windows.Forms.Button btn_sendfile;
+        private System.Windows.Forms.Button button1;
     }
 }
 

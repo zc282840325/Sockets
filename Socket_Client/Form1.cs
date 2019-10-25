@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -43,6 +44,9 @@ namespace Socket_Client
         {
             string str = txt_send.Text.Trim();
             byte[] buffer = Encoding.UTF8.GetBytes(str);
+      
+
+
             socketSend.Send(buffer);
         }
         /// <summary>
@@ -55,17 +59,39 @@ namespace Socket_Client
             {
                 try
                 {
-                    byte[] buffer = new byte[1024 * 1024 * 2];
+                    byte[] buffer = new byte[1024 * 1024 * 3];
                     int r = socketSend.Receive(buffer);
+                    int n = buffer[0];
                     if (r == 0)
                     {
                         break;
                     }
-                    else
+                    //发送文字消息
+                    if (n == 0)
                     {
-                        string str = Encoding.UTF8.GetString(buffer, 0, r);
+                        //实际接收到的有效字节数
+                        string str = Encoding.UTF8.GetString(buffer, 1, r-1);
                         ShowMsg(socketSend.RemoteEndPoint.ToString() + ":" + str);
+                        
                     }
+                    else if (n == 1)
+                    {
+                        SaveFileDialog sfd = new SaveFileDialog();
+                        sfd.InitialDirectory = @"C:\Users\Administrator\Desktop";
+                        sfd.Title = "请选择要保存的文件";
+                        sfd.Filter = "所有文件|*.*";
+                        sfd.ShowDialog(this);
+                        string path = sfd.FileName;
+                        using (FileStream fs=new FileStream(path,FileMode.OpenOrCreate,FileAccess.Write))
+                        {
+                            fs.Write(buffer,1,r);
+                        }
+                    }
+                    else if(n==2)
+                    {
+                        ZD();
+                    }
+                   
 
                 }
                 catch (Exception)
@@ -74,7 +100,17 @@ namespace Socket_Client
                 }
             }
         }
-
+        /// <summary>
+        /// 震动
+        /// </summary>
+        void ZD()
+        {
+            for (int i = 0; i < 500; i++)
+            {
+                this.Location = new Point(200,200);
+                this.Location = new Point(280, 280);
+            }
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             //跨线程访问

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -115,6 +116,49 @@ namespace WindowsFormsApp1
         {
             string str = txt_send.Text.Trim();
             byte[] buffer = Encoding.UTF8.GetBytes(str);
+            List<byte> list = new List<byte>();
+            list.Add(0);
+            list.AddRange(buffer);
+            //讲泛型集合转换为数组
+            byte[] newbuffer = list.ToArray();
+
+            string ip = comboBox1.SelectedItem.ToString(); ;
+            dicSocket[ip].Send(newbuffer);
+        }
+
+        private void Btn_select_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = @"C:\Users\Administrator\Desktop";
+            ofd.Title = "请选择要发送的文件";
+            ofd.Filter = "所有文件|*.*";
+            ofd.ShowDialog();
+
+            txt_path.Text = ofd.FileName;
+        }
+
+        private void Btn_sendfile_Click(object sender, EventArgs e)
+        {
+            string path = txt_path.Text;
+            //获取文件的路径
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                byte[] buffer = new byte[1024*1024*5];
+                int r = fs.Read(buffer, 0, buffer.Length);
+                List<byte> list = new List<byte>();
+                list.Add(1);
+                list.AddRange(buffer);
+                byte[] newbuff = list.ToArray();
+                
+                string ip = comboBox1.SelectedItem.ToString(); ;
+                dicSocket[ip].Send(newbuff, 0,r+1,SocketFlags.None);
+            }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            byte[] buffer = new byte[1];
+            buffer[0] = 2;
             string ip = comboBox1.SelectedItem.ToString(); ;
             dicSocket[ip].Send(buffer);
         }
